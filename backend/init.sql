@@ -15,5 +15,5 @@ CREATE TABLE IF NOT EXISTS cars (
 
 -- Insert sample data (optional)
 INSERT IGNORE INTO cars (registration_number, brand, model, notes) VALUES
-('กก 1234 ก', 'Toyota', 'Camry', 'test'),
-('กก 5678 ก', 'Honda', 'Civic', 'test');
+('กก 1234 ก', 'Toyota', 'Camry', 'ทดสอบ'),
+('กก 5678 ก', 'Honda', 'Civic', 'ทดสอบ');
