@@ -1,0 +1,574 @@
+:root {
+  --bg-page-light: linear-gradient(135deg, #eef5fc 0%, #dce9f9 45%, #e8f0fb 100%);
+  --bg-page-dark: linear-gradient(135deg, #0b1220 0%, #131b2e 50%, #0f1626 100%);
+
+  --glass-bg-light: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong-light: rgba(255, 255, 255, 0.8);
+  --glass-border-light: rgba(255, 255, 255, 0.65);
+  --text-primary-light: #1c1c1e;
+  --text-secondary-light: #6e6e73;
+
+  --glass-bg-dark: rgba(30, 41, 59, 0.45);
+  --glass-bg-strong-dark: rgba(30, 41, 59, 0.72);
+  --glass-border-dark: rgba(255, 255, 255, 0.08);
+  --text-primary-dark: #f2f4f8;
+  --text-secondary-dark: #a0a8b8;
+
+  --accent-light: #0a84ff;
+  --accent-dark: #409cff;
+  --accent-soft-light: rgba(10, 132, 255, 0.14);
+  --accent-soft-dark: rgba(64, 156, 255, 0.22);
+
+  --danger-light: #ff3b30;
+  --danger-dark: #ff6961;
+  --danger-soft-light: rgba(255, 59, 48, 0.12);
+  --danger-soft-dark: rgba(255, 105, 97, 0.18);
+
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+}
+
+[data-theme='light'] {
+  --bg-page: var(--bg-page-light);
+  --glass-bg: var(--glass-bg-light);
+  --glass-bg-strong: var(--glass-bg-strong-light);
+  --glass-border: var(--glass-border-light);
+  --text-primary: var(--text-primary-light);
+  --text-secondary: var(--text-secondary-light);
+  --accent: var(--accent-light);
+  --accent-soft: var(--accent-soft-light);
+  --danger: var(--danger-light);
+  --danger-soft: var(--danger-soft-light);
+  --shadow-glass: 0 8px 32px rgba(31, 38, 135, 0.12);
+}
+
+[data-theme='dark'] {
+  --bg-page: var(--bg-page-dark);
+  --glass-bg: var(--glass-bg-dark);
+  --glass-bg-strong: var(--glass-bg-strong-dark);
+  --glass-border: var(--glass-border-dark);
+  --text-primary: var(--text-primary-dark);
+  --text-secondary: var(--text-secondary-dark);
+  --accent: var(--accent-dark);
+  --accent-soft: var(--accent-soft-dark);
+  --danger: var(--danger-dark);
+  --danger-soft: var(--danger-soft-dark);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+.page-container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0 24px;
+}
+
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.page-header p {
+  margin: 4px 0 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* ---------- Navbar ---------- */
+.glass-navbar {
+  position: sticky;
+  top: 16px;
+  z-index: 50;
+  margin: 16px auto 32px;
+  max-width: 880px;
+  padding: 0 20px;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 12px 10px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  box-shadow: var(--shadow-glass);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.brand i {
+  color: var(--accent);
+  font-size: 16px;
+}
+
+.nav-list {
+  position: relative;
+  display: flex;
+  gap: 2px;
+}
+
+.nav-bubble {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.nav-item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.25s ease;
+}
+
+.nav-item i {
+  font-size: 13px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: var(--accent);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.08);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+/* ---------- Glass Design เหมือน ios ---------- */
+.glass-card {
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: var(--shadow-glass);
+  padding: 18px 20px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+}
+
+.glass-panel {
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  box-shadow: var(--shadow-glass);
+  padding: 24px 26px;
+}
+
+/* ---------- Form fields ---------- */
+.glass-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.glass-field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.glass-field input,
+.glass-field textarea {
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-field input:focus,
+.glass-field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.glass-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ---------- Buttons ---------- */
+.glass-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.glass-button:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.glass-button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.glass-button.ghost {
+  background: var(--glass-bg-strong);
+  color: var(--text-primary);
+}
+
+.glass-button.ghost:hover {
+  background: var(--glass-border);
+  color: var(--text-primary);
+}
+
+.glass-button.danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.glass-button.danger:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.icon-button:hover {
+  transform: scale(1.08);
+  color: var(--accent);
+}
+
+.icon-button.danger:hover {
+  color: var(--danger);
+}
+
+/* ---------- Car list ---------- */
+.car-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.car-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.car-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.car-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.car-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.car-meta {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.car-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-secondary);
+}
+
+.empty-state i {
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* ---------- antd glass overrides ---------- */
+.table-panel {
+  padding: 8px;
+}
+
+.table-panel .ant-table {
+  background: transparent;
+}
+
+.table-panel .ant-table-container,
+.table-panel .ant-table-content {
+  backdrop-filter: blur(6px);
+}
+
+.table-panel .ant-table-thead > tr > th {
+  background: transparent;
+}
+
+.table-panel .ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.table-panel .ant-table-tbody > tr:hover > td {
+  background: var(--accent-soft) !important;
+}
+
+.table-panel .ant-pagination {
+  margin: 16px 8px 4px;
+}
+
+.glass-icon-btn {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.car-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 20px;
+}
+
+.car-form .form-grid-full {
+  grid-column: 1 / -1;
+}
+
+.ant-modal-content,
+.ant-popover-inner,
+.ant-select-dropdown,
+.ant-dropdown-menu {
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+}
+
+.ant-message-notice-content {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+}
+
+/* ---------- Responsive Design ---------- */
+
+/* Tablet and narrow desktop */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 0 16px;
+  }
+
+  .glass-navbar {
+    top: 10px;
+    margin: 10px auto 24px;
+    padding: 0 12px;
+  }
+
+  .navbar-inner {
+    padding: 8px 8px 8px 14px;
+  }
+
+  .glass-panel {
+    padding: 20px;
+  }
+
+  .table-panel .ant-table-wrapper {
+    overflow-x: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .page-header .glass-button,
+  .page-header .ant-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .brand span {
+    display: none;
+  }
+
+  .nav-item span {
+    display: none;
+  }
+
+  .nav-item {
+    padding: 9px 12px;
+  }
+
+  .nav-item i {
+    font-size: 15px;
+  }
+
+  .glass-panel,
+  .ant-form.glass-panel {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .car-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .car-form .ant-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .table-panel {
+    padding: 6px;
+  }
+
+  /* ซ่อนคอลัมน์ที่มีความสำคัญน้อยที่สุดถ้าจอเล็กมากๆ */
+  .table-panel .ant-table-thead > tr > th:nth-child(4),
+  .table-panel .ant-table-tbody > tr > td:nth-child(4) {
+    display: none;
+  }
+
+  .car-row {
+    flex-wrap: wrap;
+  }
+
+  .car-actions {
+    margin-left: auto;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  .navbar-inner {
+    gap: 8px;
+  }
+
+  .nav-item {
+    padding: 8px 10px;
+  }
+
+  .theme-toggle {
+    width: 34px;
+    height: 34px;
+  }
+}
+
