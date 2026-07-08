@@ -16,6 +16,18 @@ exports.createCar = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
+//ดึงข้อมูลรถตาม id
+exports.getCar = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    console.log(`[getCar] requested id=${id}`);
+    const car = await CarModel.getById(id);
+    console.log('[getCar] db result=', car);
+    if (!car) return res.status(404).json({ message: 'Car not found' });
+    res.json(car);
+  } catch (err) { next(err); }
+};
+
 //แก้ไขข้อมูลรถตาม id
 exports.updateCar = async (req, res, next) => {
   try {
